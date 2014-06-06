@@ -2,7 +2,6 @@ TO DO
 
 Implement the Runner
 
-As a user, if 'add' is typed, I am prompted to give my 'first name', 'last name', 'email' and 'notes'.
 As a user, if 'modify' is typed, I am prompted to enter a contact attribute to be modified.
 As a user, when an attribute is entered, I am prompted to type 'yes' or 'no' to confirm my selection.
 As a user, if 'yes' is typed, I am prompted to change 'id', 'firstname', 'lastname' and 'email'.
@@ -27,3 +26,4 @@ As a developer, the rolodex class should have the following methods: add, modify
 
 DONE
 As a user, I am presented with a prompt to 'add', 'modify', 'display all', 'display contact', display attribute', 'delete' and 'exit'.
+As a user, if 'add' is typed, I am prompted to give my 'first name', 'last name', 'email' and 'notes'.

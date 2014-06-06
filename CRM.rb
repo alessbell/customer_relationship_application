@@ -1,4 +1,9 @@
-# class CRM
+class CRM
+	attr_reader :name
+	def initialize(name)
+		@name = name
+	end
+
 	def print_main_menu
 		puts "[1] Add a new contact"
 		puts "[2] Modify an existing contact"
@@ -10,13 +15,14 @@
 	end
 
 	def main_menu
+		puts "Welcome to #{name}"
 		print_main_menu
 		user_selected = gets.to_i
 		call_option(user_selected)
 	end
 
 	def call_option(user_selected)
-		case selection
+		case user_selected
 		when 1 then add_new_contact
 		when 2 then modify_existing_contact
 		when 3 then delete_contact
@@ -41,23 +47,29 @@
 		print "Enter a note: "
 		note = gets.chomp
 		contact = Contact.new(first_name, last_name, email, note)
+		main_menu
 	end
 
-	main_menu
+	def modify_existing_contact
 
-# 	def modify_existing_contact
+	end
+end
 
-# 	end
-# end
+class Contact
+	def initialize(first_name, last_name, email, note)
+		@first_name = first_name
+		@last_name = last_name
+		@email = email
+		@note = note
+	end
+end
 
-# class Contact
-# 	def initialize(first_name, last_name, email, note)
-# 		@first_name = first_name
-# 		@last_name = last_name
-# 		@email = email
-# 		@note = note
-# 	end 
-# end
+
+
+crm = CRM.new("Bitmaker Labs CRM")
+crm.main_menu
+
+
 
 # class Rolodex
 # 	def initialize
