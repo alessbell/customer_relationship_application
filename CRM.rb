@@ -1,3 +1,6 @@
+require_relative 'contact'
+require_relative 'rolodex'
+
 class CRM
 	attr_reader :name
 	def initialize(name)
@@ -52,30 +55,6 @@ class CRM
 	end
 
 	def modify_existing_contact
-	end
-end
-
-class Contact
-	attr_accessor :id, :first_name, :last_name, :email, :note
-
-	def initialize(first_name, last_name, email, note)
-		@first_name = first_name
-		@last_name = last_name
-		@email = email
-		@note = note
-	end
-end
-
-class Rolodex
-	def initialize
-		@id = 1000
-		@contact = []
-	end
-
-	def add_contact(contact)
-		@contacts << contact
-		contact.id = @id
-		@id += 1
 	end
 end
 
