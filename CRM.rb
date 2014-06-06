@@ -16,12 +16,19 @@
 	end
 
 	def call_option(user_selected)
-		add_new_contact if user_selected == 1
-		modify_existing_contact if user_selected == 2
-		delete_contact if user_selected == 3
-		display_contacts if user_selected == 4
-		display_attribute if user_selected == 5
-		exit if user_selected == 6
+		case selection
+		when 1 then add_new_contact
+		when 2 then modify_existing_contact
+		when 3 then delete_contact
+		when 4 then display_contacts
+		when 5 then display_attribute
+		when 6 then
+			puts "Goodbye"
+			return
+		else
+			puts "Invalid option. Please try again."
+			main_menu
+		end
 	end
 
 	def add_new_contact
