@@ -2,6 +2,8 @@ class CRM
 	attr_reader :name
 	def initialize(name)
 		@name = name
+		@rolodex = Rolodex.new
+		puts "Welcome to #{name}"
 	end
 
 	def print_main_menu
@@ -15,7 +17,6 @@ class CRM
 	end
 
 	def main_menu
-		puts "Welcome to #{name}"
 		print_main_menu
 		user_selected = gets.to_i
 		call_option(user_selected)
@@ -46,16 +47,17 @@ class CRM
 		email = gets.chomp
 		print "Enter a note: "
 		note = gets.chomp
-		contact = Contact.new(first_name, last_name, email, note)
+		rolodex.add_contact(Contact.new(first_name, last_name, email, note))
 		main_menu
 	end
 
 	def modify_existing_contact
-
 	end
 end
 
 class Contact
+	attr_accessor :id, :first_name, :last_name, :email, :note
+
 	def initialize(first_name, last_name, email, note)
 		@first_name = first_name
 		@last_name = last_name
@@ -64,26 +66,18 @@ class Contact
 	end
 end
 
+class Rolodex
+	def initialize
+		@id = 1000
+		@contact = []
+	end
 
+	def add_contact(contact)
+		@contacts << contact
+		contact.id = @id
+		@id += 1
+	end
+end
 
 crm = CRM.new("Bitmaker Labs CRM")
 crm.main_menu
-
-
-
-# class Rolodex
-# 	def initialize
-# 		@contacts = []
-# 		@id = 1000
-# 	end
-
-# 	def contacts
-# 		@contacts
-# 	end
-
-# 	def add_contact(contact)
-# 		contact.id = @id
-# 		@contacts << contact
-# 		@id += 1
-# 	end
-# end
