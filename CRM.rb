@@ -47,7 +47,7 @@ class CRM
 		when 1 then add_new_contact
 		when 2 then modify_existing_contact
 		when 3 then delete_contact
-		when 4 then search_contacts
+		when 4 then display_all_contacts
 		when 5 then display_attribute
 		when 6 then
 			puts "Stay classy, Toronto."
@@ -113,7 +113,6 @@ class CRM
 		else
 			array.each_with_index do |attribute, index|
 				puts "[#{index}]  | #{attribute}|"
-			end
 		end
 	end
 
@@ -138,15 +137,41 @@ class CRM
 	def display_all_contacts
 		# @rolodex.display_all_contacts
 		# "#{first_name} #{last_name}, email: #{email}. Notes: #{notes}"
-			array.each_with_index do |match, index|
-				puts "[#{index + 1}]  |First Name: #{match.first_name} | Last Name: #{match.last_name} | Email Address: #{match.email} | Notes: #{match.note} | ID: #{match.id}"
+			# array.each_with_index do |match, index|
+				# puts "[#{index + 1}]  |First Name: #{match.first_name} | Last Name: #{match.last_name} | Email Address: #{match.email} | Notes: #{match.note} | ID: #{match.id}"
+			results = @rolodex.spew_contacts
+			results.empty? ? empty_error : contact_card(results)
+			main_menu
 		end
-		main_menu
 	end
 
 	def display_attribute
-		@rolodex.display_attribute
-		main_menu
+		# puts "Select an attribute: "
+		# puts "[1] First name"
+		# puts "[2] Last name"
+		# puts "[3] Email address"
+		# puts "[4] Note"
+		# puts "[5] Id"
+		# att_select = gets.chomp
+		# @contacts.each do |x|
+		# 	case att_select
+		# 	when "1"
+		# 		puts x.first_name
+		# 	when "2"
+		# 		puts x.last_name
+		# 	when "3"
+		# 		puts x.email
+		# 	when "4"
+		# 		puts x.notes
+		# 	when "5"
+		# 		puts x.id
+		# 	end
+		print_attribute_list
+		puts "Select the attribute would you like to display:"
+		attribute_index = gets.chomp.to_i
+		results = @rolodex.spew_attributes(attribute_index)
+		spacer
+		attribute_format(results)
 	end
 
 	def empty_error

@@ -24,32 +24,15 @@ class Rolodex
 		results
 	end
 
-	def display_attribute
-		puts "Select an attribute: "
-		puts "[1] First name"
-		puts "[2] Last name"
-		puts "[3] Email address"
-		puts "[4] Note"
-		puts "[5] Id"
-		att_select = gets.chomp
-		@contacts.each do |x|
-			case att_select
-			when "1"
-				puts x.first_name
-			when "2"
-				puts x.last_name
-			when "3"
-				puts x.email
-			when "4"
-				puts x.notes
-			when "5"
-				puts x.id
-			end
-		end
-	end
-
 	def spew_contacts
 		@contacts
+	end
+
+	def spew_attributes(attribute_index)
+		selection = @attribute_methods[attribute_index - 1]
+		results = []
+		@contacts.each {|contact| results << contact.public_send(selection)}
+		results 
 	end
 
 	def modify(contact, attribute_index, new_value)
