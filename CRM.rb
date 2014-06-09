@@ -32,12 +32,6 @@ class CRM
 		puts "Enter a number: "
 	end
 
-	def main_menu
-		print_main_menu
-		user_selected = gets.to_i
-		call_option(user_selected)
-	end
-
 	def spacer
 		puts "-~-~-~-~-~-~-~-~-~-~-~-"
 	end
@@ -57,10 +51,20 @@ class CRM
 		end
 	end
 
+	def main_menu
+		print_main_menu
+		user_selected = gets.to_i
+		call_option(user_selected)
+	end
+
 	def print_attribute_list
 		spacer
 		@attributes.each_with_index { |attribute, index| puts "[#{index + 1}] #{attribute}"}
 		spacer
+	end
+	
+	def prompt(attribute)
+		puts "Please enter the #{attribute}:"
 	end
 
 	def add_new_contact
@@ -77,6 +81,14 @@ class CRM
 		notes = gets.chomp
 		@rolodex.add_new_contact(Contact.new(first_name, last_name, email, notes))
 		main_menu
+	end
+
+	def list_results(array)
+		array.each_with_index do |match, index|
+			spacer
+				puts "[#{index + 1}]  |First Name: #{match.first_name} | Last Name: #{match.last_name} | Email Address: #{match.email} | Notes: #{match.note} | ID: #{match.id}"
+			spacer
+		end
 	end
 
 	def search_contacts
@@ -120,8 +132,8 @@ class CRM
 		puts "\e[H\e[2J"
 	end
 
-	def contact_card(array)
-		array.each do |contact|
+	def contact_card(contacts)
+		contacts.each do |contact|
 				puts "#{@attributes[0]}: #{contact.first_name}"
 				puts "#{@attributes[1]}: #{contact.last_name}"
 				puts "#{@attributes[2]}: #{contact.email}"
@@ -130,15 +142,7 @@ class CRM
 		end
 	end
 
-	def prompt(attribute)
-		puts "Please enter the #{attribute}:"
-	end
-
 	def display_all_contacts
-		# @rolodex.display_all_contacts
-		# "#{first_name} #{last_name}, email: #{email}. Notes: #{notes}"
-			# array.each_with_index do |match, index|
-				# puts "[#{index + 1}]  |First Name: #{match.first_name} | Last Name: #{match.last_name} | Email Address: #{match.email} | Notes: #{match.note} | ID: #{match.id}"
 			results = @rolodex.spew_contacts
 			results.empty? ? empty_error : contact_card(results)
 			main_menu
@@ -146,32 +150,13 @@ class CRM
 	end
 
 	def display_attribute
-		# puts "Select an attribute: "
-		# puts "[1] First name"
-		# puts "[2] Last name"
-		# puts "[3] Email address"
-		# puts "[4] Note"
-		# puts "[5] Id"
-		# att_select = gets.chomp
-		# @contacts.each do |x|
-		# 	case att_select
-		# 	when "1"
-		# 		puts x.first_name
-		# 	when "2"
-		# 		puts x.last_name
-		# 	when "3"
-		# 		puts x.email
-		# 	when "4"
-		# 		puts x.notes
-		# 	when "5"
-		# 		puts x.id
-		# 	end
 		print_attribute_list
 		puts "Select the attribute would you like to display:"
 		attribute_index = gets.chomp.to_i
 		results = @rolodex.spew_attributes(attribute_index)
 		spacer
 		attribute_format(results)
+		main_menu
 	end
 
 	def empty_error
@@ -188,7 +173,6 @@ class CRM
 	end
 
 	def modify_existing_contact
-		clear_term
 		contact = search_contacts
 		print_attribute_list
 		puts "Please select the attribute you would like to modify"
